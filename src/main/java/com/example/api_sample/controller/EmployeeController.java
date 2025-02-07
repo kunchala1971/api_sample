@@ -21,17 +21,22 @@ import com.example.api_sample.repository.EmployeeRepo;
 public class EmployeeController {
 	@Autowired
 EmployeeRepo employeeRepo;
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = "http://192.168.29.99:3000")
 	@PostMapping("/api/employee")
 	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+		System.out.println("We are calling Save Employee");
+		System.out.println(employee.getEmpName());
+		System.out.println(employee.getEmpCity());
 		return new ResponseEntity<>(employeeRepo.save(employee), HttpStatus.CREATED);
 	}
 	
+	@CrossOrigin(origins = "http://192.168.29.99:3000")
 	@GetMapping("/api/employees")
 	public ResponseEntity<List<Employee>> getEmployees() {
 		return new ResponseEntity<>(employeeRepo.findAll(), HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "http://192.168.29.99:3000")
 	@GetMapping("/api/employee/{id}")
 	public ResponseEntity<Employee> getEmployee(@PathVariable long id) {
 		Optional<Employee> employee = employeeRepo.findById(id);
@@ -41,7 +46,7 @@ EmployeeRepo employeeRepo;
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin(origins = "http://192.168.29.99:3000")
 	@PutMapping("/api/employee/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable long id, @RequestBody Employee emp) {
 		Optional<Employee> employee = employeeRepo.findById(id);
@@ -55,7 +60,7 @@ EmployeeRepo employeeRepo;
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin(origins = "http://192.168.29.99:3000")
 	@DeleteMapping("/api/employee/{id}")
 	public ResponseEntity<Void> deleteStudent(@PathVariable long id) {
 		Optional<Employee> empployee = employeeRepo.findById(id);
